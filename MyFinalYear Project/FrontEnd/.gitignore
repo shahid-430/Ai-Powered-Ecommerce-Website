@@ -1,4 +1,6 @@
+# =========================
 # Logs
+# =========================
 logs
 *.log
 npm-debug.log*
@@ -7,18 +9,69 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# =========================
+# Node modules
+# =========================
+node_modules/
+
+# =========================
+# Build folders
+# =========================
 dist
 dist-ssr
+build/
+out/
+
+# =========================
+# Environment variables (CRITICAL)
+# =========================
+.env
+.env.*
 *.local
 
-# Editor directories and files
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Editor / IDE
+# =========================
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# =========================
+# Backend uploads / temp
+# =========================
+uploads/
+public/uploads/
+tmp/
+
+# =========================
+# Database files
+# =========================
+*.sqlite
+*.db
+
+# =========================
+# Cache
+# =========================
+.cache/
+.parcel-cache/
+
+# =========================
+# TypeScript
+# =========================
+*.tsbuildinfo
+
+# =========================
+# Security keys
+# =========================
+*.pem
