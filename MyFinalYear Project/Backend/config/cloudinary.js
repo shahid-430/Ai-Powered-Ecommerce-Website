@@ -29,4 +29,3 @@ catch(error){
 }
 
 export default uploadOnCloudinary
-    

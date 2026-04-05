@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Nav from '../component/Nav'
 import Sidebar from '../component/Sidebar'
 import image from '../assets/uploadimage.jpg'
 import { useState } from 'react'
+import { authDataContext } from '../context/AuthContext'
+import axios from 'axios'
 
 function Add() {
 let [image1,setImage1]=useState(false)
@@ -18,9 +20,49 @@ const [price,setPrice]=useState("")
 const [bestSeller,setBestSeller]=useState(false)
 const [size,setSize]=useState([])
 
+let {serverUrl} = useContext(authDataContext)
 
 const handleAddProduct = async(e) => {
-  
+  e.preventDefault()
+  try {
+    
+    let formData = new FormData()
+    formData.append("name", name)
+    formData.append("description", description)
+    formData.append("category", category)
+    formData.append("subcategory", subcategory)
+    formData.append("price", price)
+    formData.append("bestseller", bestSeller)
+    // formData.append("size", JSON.stringify(size))
+    formData.append("sizes", JSON.stringify(size || []))
+    formData.append("image1", image1)
+    formData.append("image2", image2)
+    formData.append("image3", image3)
+    formData.append("image4", image4)
+
+
+    let result = await axios.post(serverUrl + "/api/product/addproduct", formData, {withCredentials:true})
+
+     console.log(result.data)
+
+     if(result.data){
+
+      setName("")
+      setDescription("")
+      setImage1(false)
+      setImage2(false)
+      setImage3(false)
+      setImage4(false)
+      setPrice("")
+      setBestSeller(false)
+      setCategory("Men")
+      setSubcategory("TopWear")
+      
+
+     }
+  } catch (error) {
+    console.error("Error adding product:", error)
+  }
 }
 
   return (
@@ -33,7 +75,7 @@ const handleAddProduct = async(e) => {
     {/* //form */}
 
     <div className='w-[82%] h-[100%] flex items-center justify-start overflow-x-hidden absolute right-0'>
-      <form action="" className='w-[100%] md:w-[90%] h-[100%] mt-[70px] flex flex-col gap-[30px] py-[60px] px-[30px] md:px-[60px]'>
+      <form action="" onSubmit={handleAddProduct} className='w-[100%] md:w-[90%] h-[100%] mt-[70px] flex flex-col gap-[30px] py-[60px] px-[30px] md:px-[60px]'>
         <div className='w-[400px] h-[50px] text-[25px] md:text-[40px] text-[white]' >Add Product Page</div>
 
         <div className='w-[80%] h-[130px] flex items-start justify-center flex-col mt-[20px] gap[10px]'>
@@ -112,7 +154,7 @@ const handleAddProduct = async(e) => {
  
      <div className='w-[80%] h-[100px] flex items-start justify-center flex-col gap[10px]'>
       <p className='text-[20px] md:text-[25px] font-semibold mb-[10px]' >Product Price</p>
-      <input type="number" placeholder='Rs 1000' className='w-[600px] max-w-[98%] h-[40px] rounded-lg hover:border-[#46d1f7] border-[2px] cursor-pointer bg-slate-600 px-[20px] text-[18px] placeholder:text-[#ffffffc2]' required/>
+      <input type="number"placeholder="Rs 1000" value={price} onChange={(e) => setPrice(e.target.value)} className='w-[600px] max-w-[98%] h-[40px] rounded-lg hover:border-[#46d1f7] border-[2px] cursor-pointer bg-slate-600 px-[20px] text-[18px] placeholder:text-[#ffffffc2]' required/>
      </div>
 
       
@@ -135,8 +177,8 @@ const handleAddProduct = async(e) => {
 
 
       <div className='w-[80%] h-[50px] flex items-center justify-start gap-[10px]'>
-        <input type="checkbox" id='bestSeller' className='w-[20px] h-[20px] cursor-pointer' onChange={(e)=>setBestSeller(e.target.checked)} checked={bestSeller} />
-        <label htmlFor="bestSeller" className='text-[18px] font-semibold cursor-pointer'> Add to Best Seller</label>
+        <input type="checkbox" id='bestSeller' className='w-[25px] h-[25px] cursor-pointer' onChange={(e)=>setBestSeller(e.target.checked)} checked={bestSeller} />
+        <label htmlFor="bestSeller" className='text-[18px] font-semibold cursor-pointer' onChange={(e)=>setBestSeller(prev => !prev)}> Add to Best Seller</label>
       </div>
 
         <button className='w-[140px] ] px-[20px] py-[20px] rounded-xl bg-[#65d8f7] flex items-center justify-center  gap-[5px] text-black active:bg-slate-700 active:text-white active:border-[2px] border-white'>Add Product</button>

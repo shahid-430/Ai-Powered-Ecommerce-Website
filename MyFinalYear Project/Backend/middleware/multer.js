@@ -15,4 +15,4 @@ let storage = multer.diskStorage({
 
 let upload = multer({storage})
 
-export default upload
+ export default upload
