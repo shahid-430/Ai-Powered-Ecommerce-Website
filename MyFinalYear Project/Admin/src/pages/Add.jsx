@@ -143,8 +143,8 @@ const handleAddProduct = async(e) => {
         <p className='text-[20px] md:text-[25px] font-semibold w-[100%]'>Sub Category</p>
         <select name="" id="" className='bg-slate-600 w-[60%] px-[10px] py-[7px] rounded-lg hover:border-[#46d1f7] border-[2px]' onChange={(e)=>setSubcategory(e.target.value)} value={subcategory}>
           <option value="TopWear">TopWear</option>
-          <option value="Women">Women</option>
-          <option value="Kids">Kids</option>
+          <option value="Women">BottomWear</option>
+          <option value="Kids">WinterWear</option>
         </select>
       </div>
      </div> 
@@ -176,9 +176,9 @@ const handleAddProduct = async(e) => {
 
 
 
-      <div className='w-[80%] h-[50px] flex items-center justify-start gap-[10px]'>
-        <input type="checkbox" id='bestSeller' className='w-[25px] h-[25px] cursor-pointer' onChange={(e)=>setBestSeller(e.target.checked)} checked={bestSeller} />
-        <label htmlFor="bestSeller" className='text-[18px] font-semibold cursor-pointer' onChange={(e)=>setBestSeller(prev => !prev)}> Add to Best Seller</label>
+      <div className='w-[80%] h-[50px]  flex items-center justify-start gap-[10px]'>
+        <input type="checkbox" id='bestSeller' className='w-[25px]  h-[25px] cursor-pointer accent-[#475569] ' onChange={(e)=>setBestSeller(e.target.checked)} checked={bestSeller} />
+        <label htmlFor="bestSeller" className='text-[18px]  font-semibold cursor-pointer' onChange={(e)=>setBestSeller(prev => !prev)}> Add to Best Seller</label>
       </div>
 
         <button className='w-[140px] ] px-[20px] py-[20px] rounded-xl bg-[#65d8f7] flex items-center justify-center  gap-[5px] text-black active:bg-slate-700 active:text-white active:border-[2px] border-white'>Add Product</button>
