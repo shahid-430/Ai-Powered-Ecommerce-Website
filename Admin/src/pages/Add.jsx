@@ -154,7 +154,7 @@ const handleAddProduct = async(e) => {
  
      <div className='w-[80%] h-[100px] flex items-start justify-center flex-col gap[10px]'>
       <p className='text-[20px] md:text-[25px] font-semibold mb-[10px]' >Product Price</p>
-      <input type="number"placeholder="Rs 1000" value={price} onChange={(e) => setPrice(e.target.value)} className='w-[600px] max-w-[98%] h-[40px] rounded-lg hover:border-[#46d1f7] border-[2px] cursor-pointer bg-slate-600 px-[20px] text-[18px] placeholder:text-[#ffffffc2]' required/>
+      <input type="number"placeholder=" Rs 1000" value={price} onChange={(e) => setPrice(e.target.value)} className='w-[600px] max-w-[98%] h-[40px] rounded-lg hover:border-[#46d1f7] border-[2px] cursor-pointer bg-slate-600 px-[20px] text-[18px] placeholder:text-[#ffffffc2]' required/>
      </div>
 
       
