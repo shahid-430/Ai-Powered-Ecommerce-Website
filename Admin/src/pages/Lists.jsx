@@ -37,6 +37,7 @@ const removelist = async (id) => {
    }  
 
   }
+  
 
 useEffect(()=>{
   fetchlist()
