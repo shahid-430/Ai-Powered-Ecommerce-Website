@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Nav from '../component/Nav'
 import Background from '../component/Background'
 import Hero from '../component/Hero'
+import Product from './Product'
 
 function Home() {
 //hero we set values for prop that we pass to hero componment
@@ -40,7 +41,7 @@ useEffect(()=>{
 <Nav/>
         
         </div>
-
+         <Product/>
         </div>
   )
 }

@@ -5,7 +5,7 @@ import { IoSearchCircleSharp } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import { UserDataContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineCollection } from "react-icons/hi";
 import { MdContacts } from "react-icons/md";
@@ -46,10 +46,10 @@ function Nav() {
      </div>
        <div className ='w-[50%] lg:w-[40%] hidden md:flex'>
         <ul className='flex items-center justify-center gap-[19px] text-[white]'>
-          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl'>Home</li>
-          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl'>Collections</li>
-          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl'>About</li>
-          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl'>Contact</li>
+          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/')}>Home</li>
+          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/collections')}>Collections</li>
+          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/about')}>About</li>
+          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/contact')}>Contact</li>
         </ul>
         </div>
 
@@ -72,7 +72,7 @@ function Nav() {
        </div>
 
        { showSearch && <div className='w-[100%] h-[80px] bg-[#d8f6f9dd]  absolute top-[100%] left-0  right-0 flex items-center justify-center '>
-        <input type="text" className='w-[50%] h-[60%] bg-[#233533]  rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search here' />
+        <input type="text" className='lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search here' />
 
        </div> }
 
@@ -90,9 +90,9 @@ function Nav() {
 
             {userData && <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={()=>{handleLogout();setShowProfile(false)}}>Logout</li>}
 
-            <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer'>Orders</li>
+            <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={() => navigate('/orders')}>Orders</li>
             
-            <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer'>About</li>
+            <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={() => navigate('/about')}>About</li>
 
           </ul>
 
@@ -100,10 +100,11 @@ function Nav() {
 
        <div className='w-[100vw] h-[90px] flex items-center  justify-between px[20px] fixed  bottom-0 text-[12px]  left-0 bg-[#191818] md:hidden'>
 
-          <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><IoMdHome className='w-[25px] h-[25px] text-[white] md:hidden'/>Home</button>
-          <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><HiOutlineCollection className='w-[25px] h-[25px] text-[white] md:hidden'/>Collections</button>
-        <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><MdContacts className='w-[25px] h-[25px] text-[white] md:hidden'/>Contact</button>
-        <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><BsCartPlus className='w-[25px] h-[25px] text-[white] md:hidden'/>Cart</button>
+          <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/")}><IoMdHome className='w-[28px] h-[28px] text-[white] md:hidden'/>Home</button>
+          <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/collections")}><HiOutlineCollection className='w-[28px] h-[28px] text-[white] md:hidden'/>Collections</button>
+        <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/contact")}><MdContacts className='w-[28px] h-[28px] text-[white] md:hidden'/>Contact</button>
+        <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/cart")}><BsCartPlus className='w-[28px] h-[28px] text-[white] md:hidden'/>Cart</button>
+        <p className='absolute top-[10px] right-[1px] bg-[#ff0000] text-[black] rounded-full w-[18px] h-[18px] flex items-center justify-center bg-[white] text-[9px] px-[5px] py-[2px] font-semibold '>10</p>
         
 
 
