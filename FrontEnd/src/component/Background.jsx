@@ -1,25 +1,20 @@
 import React from 'react'
-import my4 from "../assets/my4.jpg"
-import my1 from "../assets/my1.jpg"
-import my2 from "../assets/my2.jpg"
-import my3 from "../assets/my3.jpg"
+import my4 from "../assets/image5.png"
+import my1 from "../assets/image2.png"
+import my2 from "../assets/image3.png"
+import my3 from "../assets/image4.png"
 
-function Background({heroCount}) {
- if(heroCount===0){
-    return <img src={my4} alt=''  className='w-[100%] h-[100%] float-left  overflow-auto object-cover' />
- }
- else if(heroCount===1){
-    return <img src={my1} alt=''  className='w-[100%] h-[100%] float-left overflow-auto object-cover'/>
+function Background({ heroCount }) {
 
- }
- else if(heroCount===2){
-    return <img src={my2} alt=''  className='w-[100%] h-[100%] float-left overflow-auto object-cover'/>
+  const images = [my4, my1, my2, my3];
 
- }
- else if(heroCount===3){
-    return <img src={my3} alt=''  className='w-[100%] h-[100%] float-left overflow-auto object-cover'/>
-
- }
+  return (
+    <img
+      src={images[heroCount]}
+      alt=""
+      className="absolute top-0 right-0 w-1/2  border-l-4 border-white h-[560px]"
+    />
+  );
 }
 
-export default Background
+export default Background;
