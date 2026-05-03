@@ -6,12 +6,12 @@ export const ShopDataContext = createContext()
 
 function ShopContext({ children }) {
 
-    const [products, setProducts] = useState([])
-    const { serverUrl } = useContext(AuthDataContext)
-
-    const currency = "PKR"
-    const delivery_Charges = 100
-
+    let [products, setProducts] = useState([])
+    let [search, setSearch] = useState("")
+    let [showSearch, setShowSearch] = useState(false)
+    let { serverUrl } = useContext(AuthDataContext)
+    let { currency } = useState("PKR")
+    let { delivery_Charges } = useState(100)
     const getProducts = async () => {
         try {
             const result = await axios.get(serverUrl + "/api/product/list")
@@ -31,6 +31,12 @@ function ShopContext({ children }) {
         products,
         currency,
         delivery_Charges,
+        search,
+        setSearch,
+        showSearch,
+        setShowSearch,
+
+
         getProducts
     }
 

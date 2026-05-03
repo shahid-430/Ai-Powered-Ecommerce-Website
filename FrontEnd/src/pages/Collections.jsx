@@ -7,7 +7,7 @@ import Card from "../component/Card";
 function Collections() {
 
 let [showFilter,setShowFilter] =useState(false)
-let {products} = useContext(ShopDataContext);
+let {products, search, showSearch} = useContext(ShopDataContext);
 let [filteredProducts,setFilteredProducts] = useState([]);
 let [category,setCategory] = useState([]);
 let [subCategory,setSubCategory] = useState([]);
@@ -42,13 +42,16 @@ const toggleCategory = (e) => {
 const applyFilter = () => {
   let productCopy= products.slice()
 
+// Searching the products based on the search query
+
+ if(showSearch && search){
+  productCopy = productCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+ }
   if(category.length > 0){
     productCopy = productCopy.filter(item => category.includes(item.category))
   }
 
-  // if(subCategory.length > 0){
-  //   productCopy = productCopy.filter(item => subCategory.includes(item.subCategory))
-  // }
+  
   if(subCategory.length > 0){
   productCopy = productCopy.filter(item =>
     subCategory.includes(item.subcategory?.toLowerCase())
@@ -58,6 +61,32 @@ const applyFilter = () => {
 }
 
 
+// Sorting the products based on the price
+
+const sortProducts = () => {
+let fbCopy = filteredProducts.slice();
+
+switch(sortBy){
+  case "low_to_high":
+  setFilteredProducts (fbCopy.sort((a,b) => a.price - b.price));
+  break;
+  case "high_to_low":
+  setFilteredProducts(fbCopy.sort((a,b) => b.price - a.price));
+  break;
+  default:
+  applyFilter();
+  break;
+
+}
+
+}
+
+useEffect(() => {
+  sortProducts();
+},[sortBy]) 
+
+
+
 useEffect(() => {
   setFilteredProducts(products);
 },[products])
@@ -65,50 +94,47 @@ useEffect(() => {
 
 useEffect(() => {
   applyFilter();
-},[category,subCategory,])
+},[category,subCategory,search,showSearch])
+
+
 
 return (
-          <div  className="w-[100vw] min-h-[100vh]  bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-start justify-start flex-col mid:flex-row pt-[70px] overflow-x-hidden z-[2]">
+          <div className="w-[100vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex flex-col lg:flex-row pt-[70px] overflow-x-hidden z-[2]">
 
 
-            <div className={'md:w-[30vw] lg:w-[20vw] w-[100vw] md:h-[100vh] ' + (showFilter ? 'h-[45vh]' : 'h-[8vh]') + ' p-[20px] border-r-[1px] border-gray-400 text-[aaf5fa] lg:fixed'}>
-             <p className="text-[25px] font-semibold flex gap-[5px] items-center justify-start text-[#f8fafa] cursor-pointer" onClick={() => setShowFilter(prev => !prev)}>FILTER
-            {!showFilter && <FaAngleRight className="text-[18px] md:hidden"/>}
-             {showFilter && <FaChevronDown  className="text-[18px] md:hidden" />}
+            <div className={'w-[100vw] lg:w-[22vw] p-[20px] border-r-[1px] border-gray-400 text-[#aaf5fa] bg-slate-900/20 ' + (showFilter ? 'h-auto' : 'h-[8vh]') + ' lg:fixed lg:top-[70px] lg:left-0 lg:h-auto'}>
+             <p className="text-[25px] font-semibold flex gap-[5px] items-center justify-between text-[#f8fafa] cursor-pointer" onClick={() => setShowFilter(prev => !prev)}>
+               FILTER
+               {!showFilter && <FaAngleRight className="text-[18px] md:hidden" />}
+               {showFilter && <FaChevronDown className="text-[18px] md:hidden" />}
              </p>
-             
 
-
-
-             <div className={`border-[2px] border-[#dedcdc] pl-5 py-3  mt-6 rounded-md bg-slate-600 ${showFilter ? "" : "hidden"} md:block`}>
+             <div className={`border-[2px] border-[#dedcdc] pl-5 py-3 mt-6 rounded-md bg-slate-600 ${showFilter ? 'block' : 'hidden'} lg:block`}>
                <p className="text-[18px] text-[#f8fafa]">Categories</p>
-               <div className="w-[230px] h-[120px] flex items-start justify-center gap-[10px] flex-col ">
-           <p className="flex item-center justify-center gap-[10px] text-[15px] fond-light text-[#f8fafa]"> <input type="checkbox" value ={"Men"} className="w-3" onChange={toggleCategory} />Men</p>
-            <p className="flex item-center justify-center gap-[10px] text-[15px] fond-light text-[#f8fafa]"> <input type="checkbox" value ={"Women"} className="w-3" onChange={toggleCategory}/>Women</p>
-          <p className="flex item-center justify-center gap-[10px] text-[15px] fond-light text-[#f8fafa]"> <input type="checkbox" value ={"Kids"} className="w-3" onChange={toggleCategory}/>Kids</p>
-      </div>
+               <div className="w-full h-auto flex flex-col gap-[10px] mt-3">
+                 <label className="flex items-center gap-[10px] text-[15px] text-[#f8fafa]"><input type="checkbox" value="Men" className="w-3" onChange={toggleCategory} />Men</label>
+                 <label className="flex items-center gap-[10px] text-[15px] text-[#f8fafa]"><input type="checkbox" value="Women" className="w-3" onChange={toggleCategory} />Women</label>
+                 <label className="flex items-center gap-[10px] text-[15px] text-[#f8fafa]"><input type="checkbox" value="Kids" className="w-3" onChange={toggleCategory} />Kids</label>
+               </div>
+             </div>
 
-       
-    </div>
-
-    
-             <div className={`border-[2px] border-[#dedcdc] pl-5 py-3  mt-6 rounded-md bg-slate-600 ${showFilter ? "" : "hidden"} md:block`}>
-               <p className="text-[18px] text-[#f8fafa]"> Sub Categories</p>
-               <div className="w-[230px] h-[120px] flex items-start justify-center gap-[10px] flex-col ">
-           <p className="flex item-center justify-center gap-[10px] text-[15px] fond-light text-[#f8fafa]"> <input type="checkbox" value ={"Topwear"} className="w-3" onChange={toggleSubCategory} />Topwear</p>
-            <p className="flex item-center justify-center gap-[10px] text-[15px] fond-light text-[#f8fafa]"> <input type="checkbox" value ={"Bottomwear"} className="w-3" onChange={toggleSubCategory}/>Bottomwear</p>
-          <p className="flex item-center justify-center gap-[10px] text-[15px] fond-light text-[#f8fafa]"> <input type="checkbox" value ={"Winterwear"} className="w-3" onChange={toggleSubCategory}/>Winterwear</p>
-      </div>
-    </div>
+             <div className={`border-[2px] border-[#dedcdc] pl-5 py-3 mt-6 rounded-md bg-slate-600 ${showFilter ? 'block' : 'hidden'} lg:block`}>
+               <p className="text-[18px] text-[#f8fafa]">Sub Categories</p>
+               <div className="w-full h-auto flex flex-col gap-[10px] mt-3">
+                 <label className="flex items-center gap-[10px] text-[15px] text-[#f8fafa]"><input type="checkbox" value="Topwear" className="w-3" onChange={toggleSubCategory} />Topwear</label>
+                 <label className="flex items-center gap-[10px] text-[15px] text-[#f8fafa]"><input type="checkbox" value="Bottomwear" className="w-3" onChange={toggleSubCategory} />Bottomwear</label>
+                 <label className="flex items-center gap-[10px] text-[15px] text-[#f8fafa]"><input type="checkbox" value="Winterwear" className="w-3" onChange={toggleSubCategory} />Winterwear</label>
+               </div>
+             </div>
 
   </div>
 
 
-    <div className="lg:pl-[20%] md:py-[10px]">
+    <div className="w-full lg:ml-[22vw] md:py-[10px]">
       <div className=" md:w-[80vw] w-[100vw] p-[20px] flex justify-between  flex-col   lg:flex-row lg:px-[50px] ">
         <Title text1={"All"} text2={"Collections"}/>
 
-        <select name="" id="" className="bg-slate-600 w-[60%] md:w-[200px] h-[50px] px-[10px]  text-[white] rounded-lg hover:border-[#46d1f7] border-[2px]">
+        <select name="" id="" className="bg-slate-600 w-[60%] md:w-[200px] h-[50px] px-[10px]  text-[white] rounded-lg hover:border-[#46d1f7] border-[2px]" onChange={(e) => setSortType(e.target.value)}>
 
 
 

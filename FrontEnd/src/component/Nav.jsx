@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { use, useContext, useState } from 'react'
 import logo1 from '../assets/logo1.png'
 import { IoSearchCircleOutline } from "react-icons/io5";
 import { IoSearchCircleSharp } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { HiOutlineCollection } from "react-icons/hi";
 import { MdContacts } from "react-icons/md";
 import axios from 'axios';
 import { AuthDataContext } from '../context/AuthContext';
+import { ShopDataContext } from '../context/shopContext';
 
 
 
@@ -18,7 +19,7 @@ function Nav() {
 
   let {getCurrentUser, userData} = useContext(UserDataContext)
   let {serverUrl} = useContext(AuthDataContext)
-  let [showSearch, setShowSearch] = useState(false)
+  let {showSearch, setShowSearch, search, setSearch} = useContext(ShopDataContext)
   let [showProfile, setShowProfile] = useState(false)
   let navigate = useNavigate()
 
@@ -55,7 +56,7 @@ function Nav() {
 
         <div className='w-[30%] flex items-center justify-end gap-[20px]'>
 
-          {!showSearch && <IoSearchCircleOutline  className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-2xl' onClick={() => setShowSearch(prev => !prev)}/>}
+          {!showSearch && <IoSearchCircleOutline  className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-2xl' onClick={() => {setShowSearch(prev => !prev);navigate("/collections")}}/>}
 
          {showSearch && <IoSearchCircleSharp  className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-2xl ' onClick={() => setShowSearch(prev => !prev)}/>}
           
@@ -71,8 +72,8 @@ function Nav() {
           <p className='absolute top-[3px] right-[23px] w-[18px] h-[18px] text-white rounded-full flex items-center justify-center md:flex bg-black px-[5px] py-[2px] right-[23px] hidden md:block  '>10</p>
        </div>
 
-       { showSearch && <div className='w-[100%] h-[80px] bg-[#d8f6f9dd]  absolute top-[100%] left-0  right-0 flex items-center justify-center '>
-        <input type="text" className='lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search here' />
+       { showSearch && <div className='w-[100%] h-[80px]   absolute top-[85%] left-0  right-0 flex items-center justify-center '>
+        <input type="text" className='lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search here' onChange={(e) =>{setSearch(e.target.value)}} value={search} />
 
        </div> }
 
