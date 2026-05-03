@@ -143,8 +143,8 @@ const handleAddProduct = async(e) => {
         <p className='text-[20px] md:text-[25px] font-semibold w-[100%]'>Sub Category</p>
         <select name="" id="" className='bg-slate-600 w-[60%] px-[10px] py-[7px] rounded-lg hover:border-[#46d1f7] border-[2px]' onChange={(e)=>setSubcategory(e.target.value)} value={subcategory}>
           <option value="TopWear">TopWear</option>
-          <option value="Women">BottomWear</option>
-          <option value="Kids">WinterWear</option>
+          <option value="BottomWear">BottomWear</option>
+          <option value="WinterWear">WinterWear</option>
         </select>
       </div>
      </div> 
