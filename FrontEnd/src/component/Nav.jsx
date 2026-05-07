@@ -99,13 +99,13 @@ function Nav() {
 
        </div> }
 
-       <div className='w-[100vw] h-[90px] flex items-center  justify-between px[20px] fixed  bottom-0 text-[12px]  left-0 bg-[#191818] md:hidden'>
+       <div className='w-[100vw] h-[60px] flex items-center gap-[20px] justify-between px-[20px] fixed  bottom-0 text-[12px]  left-0 bg-[#191818] md:hidden'>
 
           <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/")}><IoMdHome className='w-[28px] h-[28px] text-[white] md:hidden'/>Home</button>
           <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/collections")}><HiOutlineCollection className='w-[28px] h-[28px] text-[white] md:hidden'/>Collections</button>
         <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/contact")}><MdContacts className='w-[28px] h-[28px] text-[white] md:hidden'/>Contact</button>
         <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/cart")}><BsCartPlus className='w-[28px] h-[28px] text-[white] md:hidden'/>Cart</button>
-        <p className='absolute top-[10px] right-[1px] bg-[#ff0000] text-[black] rounded-full w-[18px] h-[18px] flex items-center justify-center bg-[white] text-[9px] px-[5px] py-[2px] font-semibold '>10</p>
+        <p className='absolute top-[10px] right-[1px] bg-[#ff0000] text-[black] rounded-full w-[18px] h-[18px] flex items-center justify-center bg-[white] text-[9px] px-[5px] py-[2px] font-semibold mr-[10px] '>10</p>
         
 
 

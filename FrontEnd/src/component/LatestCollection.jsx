@@ -18,14 +18,14 @@ function latestCollection() {
   return (
     <div>
 
-        <div className='h-[8%] w-[100%] text-center md:mt-[50px]'>
+        <div className='w-[100%] py-[40px] text-center md:mt-[50px]'>
 
             <Title text1={"Latest"} text2={"Collections"}/>
             <p className='w-[100%] mx-auto text-[13px] md:text-[20px] px-[10px] text-blue-100 text-center '>
                 Step into the latest trends and discover our newest arrivals.
             </p>
 
-            <div className='w-[100%] h-[50%]  mt-[30px] flex items-center justify-center gap-[50px] flex-wrap'>
+            <div className='w-[100%] mt-[30px] flex items-center justify-center gap-[10px] sm:gap-[20px] md:gap-[50px] flex-wrap'>
 
                 { 
 

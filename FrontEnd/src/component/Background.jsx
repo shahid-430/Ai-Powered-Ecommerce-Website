@@ -12,7 +12,7 @@ function Background({ heroCount }) {
     <img
       src={images[heroCount]}
       alt=""
-      className="absolute right-[20px] top-[20px] rounded-lg right-0 w-1/2  border-l-4 border-white h-[560px] "
+      className="mx-auto block rounded-lg w-full sm:w-[90%] md:w-[85%] lg:w-[90%] max-w-[650px] h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] xl:h-[560px] object-cover border-l-4 border-white"
     />
   );
 }

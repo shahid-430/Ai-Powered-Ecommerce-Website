@@ -3,6 +3,9 @@ import Nav from '../component/Nav'
 import Background from '../component/Background'
 import Hero from '../component/Hero'
 import Product from './Product'
+import OurPolicy from '../component/OurPolicy'
+import NewLetterBox from '../component/NewLetterBox'
+import Footer from '../component/Footer'
 
 function Home() {
 //hero we set values for prop that we pass to hero componment
@@ -25,24 +28,19 @@ useEffect(()=>{
 },[])
 
   return (
- //new class for responsiveness
-   <div className='overflow-x-hidden relative top-[50px] '>
-
-     <div className='w-[100vw] lg:h-[100vh] md:h-[50vh] sm:h-[30vh] bg-gradient-to-l from-[#141414] to-[#0c2025] '>
-
-
-      <Background  heroCount={heroCount} />
-
-      <Hero heroCount={heroCount} setHeroCount={setHeroCount}  heroData={heroData[heroCount]} />
-
-
-
-
-<Nav/>
-        
+    <div className='overflow-hidden relative'>
+      <div className='w-[100vw] bg-gradient-to-l from-[#141414] to-[#0c2025] pt-[70px] pb-[30px] lg:pb-[40px]'>
+        <Nav />
+        <div className='mx-auto flex flex-col-reverse items-center justify-between gap-8 px-4 pb-10 md:flex-row md:px-10 lg:px-16 lg:pb-16 max-w-[1300px]'>
+          <Hero heroCount={heroCount} setHeroCount={setHeroCount} heroData={heroData[heroCount]} />
+          <Background heroCount={heroCount} />
         </div>
-         <Product/>
-        </div>
+      </div>
+      <Product />
+      <OurPolicy />
+      <NewLetterBox />
+      <Footer />
+    </div>
   )
 }
 
