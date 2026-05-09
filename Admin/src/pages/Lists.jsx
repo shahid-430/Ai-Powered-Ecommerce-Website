@@ -3,11 +3,22 @@ import Sidebar from '../component/Sidebar'
 import Nav from '../component/Nav'
 import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
+import { FaEdit } from 'react-icons/fa'
 
 // function for fetching the list of products 
 
 function Lists() {
 let [list , setList] = useState([])
+let [editingProduct, setEditingProduct] = useState(null)
+let [editForm, setEditForm] = useState({
+  name: '',
+  description: '',
+  category: '',
+  subcategory: '',
+  price: '',
+  bestseller: false,
+  sizes: []
+})
 let {serverUrl} = useContext(authDataContext)
 
 const fetchlist = async () => {
@@ -37,6 +48,58 @@ const removelist = async (id) => {
    }  
 
   }
+
+// function for editing a product
+const startEdit = (product) => {
+  setEditingProduct(product)
+  setEditForm({
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    subcategory: product.subcategory,
+    price: product.price,
+    bestseller: product.bestseller,
+    sizes: product.sizes || []
+  })
+}
+
+const cancelEdit = () => {
+  setEditingProduct(null)
+  setEditForm({
+    name: '',
+    description: '',
+    category: '',
+    subcategory: '',
+    price: '',
+    bestseller: false,
+    sizes: []
+  })
+}
+
+const updateProduct = async (e) => {
+  e.preventDefault()
+  try {
+    let formData = new FormData()
+    formData.append("name", editForm.name)
+    formData.append("description", editForm.description)
+    formData.append("category", editForm.category)
+    formData.append("subcategory", editForm.subcategory)
+    formData.append("price", editForm.price)
+    formData.append("bestseller", editForm.bestseller)
+    formData.append("sizes", JSON.stringify(editForm.sizes))
+
+    let result = await axios.post(`${serverUrl}/api/product/update/${editingProduct._id}`, formData, {withCredentials:true})
+    
+    if(result.data){
+      fetchlist()
+      cancelEdit()
+      alert("Product updated successfully")
+    }
+  } catch(error){
+    console.log("updateProduct error:",error)
+    alert("Failed to update product")
+  }
+}
   
 
 useEffect(()=>{
@@ -72,9 +135,13 @@ useEffect(()=>{
                 
               </div>
 
-              <div className=' w-[10%] h-[100%] bg-transparent flex items-center justify-center'>
+              <div className=' w-[10%] h-[100%] bg-transparent flex items-center justify-center gap-2'>
 
-                <span className='w-[30px] h-[30%]  flex items-center justify-center rounded-md md:hover:bg-red-300 md:hover:text-black cursor-pointer hover:bg-red-300 hover:text-black' onClick={() => removelist(item._id)}> X </span>
+                <span className='w-[30px] h-[30%] flex items-center justify-center rounded-md md:hover:bg-blue-300 md:hover:text-black cursor-pointer hover:bg-blue-300 hover:text-black' onClick={() => startEdit(item)} title="Edit"> 
+                  <FaEdit className='text-sm' />
+                </span>
+
+                <span className='w-[30px] h-[30%]  flex items-center justify-center rounded-md md:hover:bg-red-300 md:hover:text-black cursor-pointer hover:bg-red-300 hover:text-black' onClick={() => removelist(item._id)} title="Delete"> X </span>
               </div>
 
             </div>
@@ -94,6 +161,104 @@ useEffect(()=>{
       </div>
 
     </div>
+
+    {/* Edit Modal */}
+    {editingProduct && (
+      <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+        <div className='bg-slate-700 p-6 rounded-lg w-[90%] max-w-md max-h-[80vh] overflow-y-auto'>
+          <h2 className='text-white text-xl mb-4'>Edit Product</h2>
+          <form onSubmit={updateProduct} className='space-y-4'>
+            <div>
+              <label className='text-white block mb-1'>Name</label>
+              <input
+                type="text"
+                value={editForm.name}
+                onChange={(e) => setEditForm({...editForm, name: e.target.value})}
+                className='w-full p-2 rounded bg-slate-600 text-white'
+                required
+              />
+            </div>
+            
+            <div>
+              <label className='text-white block mb-1'>Description</label>
+              <textarea
+                value={editForm.description}
+                onChange={(e) => setEditForm({...editForm, description: e.target.value})}
+                className='w-full p-2 rounded bg-slate-600 text-white'
+                rows="3"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className='text-white block mb-1'>Category</label>
+              <select
+                value={editForm.category}
+                onChange={(e) => setEditForm({...editForm, category: e.target.value})}
+                className='w-full p-2 rounded bg-slate-600 text-white'
+              >
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Kids">Kids</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className='text-white block mb-1'>Subcategory</label>
+              <select
+                value={editForm.subcategory}
+                onChange={(e) => setEditForm({...editForm, subcategory: e.target.value})}
+                className='w-full p-2 rounded bg-slate-600 text-white'
+              >
+                <option value="TopWear">TopWear</option>
+                <option value="BottomWear">BottomWear</option>
+                <option value="WinterWear">WinterWear</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className='text-white block mb-1'>Price</label>
+              <input
+                type="number"
+                value={editForm.price}
+                onChange={(e) => setEditForm({...editForm, price: e.target.value})}
+                className='w-full p-2 rounded bg-slate-600 text-white'
+                required
+              />
+            </div>
+            
+            <div>
+              <label className='text-white flex items-center'>
+                <input
+                  type="checkbox"
+                  checked={editForm.bestseller}
+                  onChange={(e) => setEditForm({...editForm, bestseller: e.target.checked})}
+                  className='mr-2'
+                />
+                Bestseller
+              </label>
+            </div>
+            
+            <div className='flex gap-2'>
+              <button
+                type="submit"
+                className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700'
+              >
+                Update
+              </button>
+              <button
+                type="button"
+                onClick={cancelEdit}
+                className='bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700'
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )}
+
 </div>
   )
 }

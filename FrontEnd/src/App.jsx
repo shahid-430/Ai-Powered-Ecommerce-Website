@@ -10,6 +10,8 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Collections from './pages/Collections'
 import Product from './pages/Product'
+import ProductDetail from './pages/ProductDetail'
+import Cart from './pages/Cart'
 
 function App() {
 
@@ -46,6 +48,12 @@ let location = useLocation()
 
       <Route path='/product'
        element={ userData ? <Product /> : <Navigate to="/login" state = {{from: location.pathname}} /> } />
+
+        <Route path='/productdetail/:productId'
+       element={ userData ? <ProductDetail /> : <Navigate to="/login" state = {{from: location.pathname}} /> } />
+
+         <Route path='/cart'
+       element={ userData ? <Cart /> : <Navigate to="/login" state = {{from: location.pathname}} /> } />
 
 
     </Routes>

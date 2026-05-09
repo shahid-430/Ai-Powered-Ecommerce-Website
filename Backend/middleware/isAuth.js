@@ -31,7 +31,6 @@ const isAuth = async (req,res,next)=>{
     try {
 
         const token = req.cookies.token
-        console.log("TOKEN FROM COOKIE:", token)
 
         if(!token || typeof token !== 'string' || token.trim() === '' || !token.includes('.')){  // ADDED: Check if token is a valid JWT-like string before verifying
             return res.status(401).json({message:"Unauthorized - No Token"})

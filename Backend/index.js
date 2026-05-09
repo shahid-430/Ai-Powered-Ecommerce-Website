@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser"
 import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
+import cartRoutes from "./routes/cartRoutes.js"
 
 let port = process.env.PORT || 6000
 
@@ -20,6 +21,7 @@ app.use("/api/auth",authRoutes)
 app.use("/api/user",userRoutes)
 //productRoute
 app.use("/api/product",productRoutes)
+app.use("/api/cart",cartRoutes)
 
 app.get("/",(req,res)=>{
   

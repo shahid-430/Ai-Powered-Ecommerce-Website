@@ -19,7 +19,7 @@ function Nav() {
 
   let {getCurrentUser, userData} = useContext(UserDataContext)
   let {serverUrl} = useContext(AuthDataContext)
-  let {showSearch, setShowSearch, search, setSearch} = useContext(ShopDataContext)
+  let {showSearch, setShowSearch, search, setSearch,getCartCount} = useContext(ShopDataContext)
   let [showProfile, setShowProfile] = useState(false)
   let navigate = useNavigate()
 
@@ -68,8 +68,8 @@ function Nav() {
           </div>
         }
 
-          <BsCartPlus className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-xl hidden md:block '/>
-          <p className='absolute top-[3px] right-[23px] w-[18px] h-[18px] text-white rounded-full flex items-center justify-center md:flex bg-black px-[5px] py-[2px] right-[23px] hidden md:block  '>10</p>
+          <BsCartPlus className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-xl hidden md:block  '  onClick={()=>navigate("/cart")}/>
+          <p className='absolute top-[3px] right-[23px] w-[18px] h-[18px] text-white rounded-full flex items-center justify-center md:flex bg-black px-[5px] py-[2px] right-[23px] hidden md:block  '>{getCartCount()}</p>
        </div>
 
        { showSearch && <div className='w-[100%] h-[80px]   absolute top-[85%] left-0  right-0 flex items-center justify-center '>
@@ -105,7 +105,7 @@ function Nav() {
           <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/collections")}><HiOutlineCollection className='w-[28px] h-[28px] text-[white] md:hidden'/>Collections</button>
         <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/contact")}><MdContacts className='w-[28px] h-[28px] text-[white] md:hidden'/>Contact</button>
         <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/cart")}><BsCartPlus className='w-[28px] h-[28px] text-[white] md:hidden'/>Cart</button>
-        <p className='absolute top-[10px] right-[1px] bg-[#ff0000] text-[black] rounded-full w-[18px] h-[18px] flex items-center justify-center bg-[white] text-[9px] px-[5px] py-[2px] font-semibold mr-[10px] '>10</p>
+        <p className='absolute top-[10px] right-[1px] bg-[#ff0000] text-[black] rounded-full w-[18px] h-[18px] flex items-center justify-center bg-[white] text-[9px] px-[5px] py-[2px] font-semibold mr-[10px] '>{getCartCount()}</p>
         
 
 
