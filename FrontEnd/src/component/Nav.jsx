@@ -35,10 +35,10 @@ function Nav() {
 }
 
   return (
-    <div className='w-[100vw] h-[50px] bg-[#ecfafaec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black'>
+    <div className='w-[99vw] h-[50px] bg-[#ecfafaec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black'>
       <div className='w-[20%] lg:w-[30%] flex items-center justify-start gap-[10px]'>
 
-        <img src={logo1} alt="" className='w-[29px]   h-[29px] object-cover' />
+        <img title='Go to Home Page' onClick={()=>navigate("/")} src={logo1} alt="" className='w-[29px]   h-[29px] object-cover cursor-pointer' />
         <h1 className='text-[25px] font-sans text-[black]'>MyCart</h1>
        
        
@@ -56,11 +56,11 @@ function Nav() {
 
         <div className='w-[30%] flex items-center justify-end gap-[20px]'>
 
-          {!showSearch && <IoSearchCircleOutline  className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-2xl' onClick={() => {setShowSearch(prev => !prev);navigate("/collections")}}/>}
+          {!showSearch && <IoSearchCircleOutline title='Search Items' className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-2xl' onClick={() => {setShowSearch(prev => !prev);navigate("/collections")}}/>}
 
          {showSearch && <IoSearchCircleSharp  className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-2xl ' onClick={() => setShowSearch(prev => !prev)}/>}
           
-        {!userData && < FaUserCircle className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500 rounded-2xl hidden md:block' onClick={() => setShowProfile(prev => !prev)}/>}
+        {!userData && < FaUserCircle   className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500 rounded-2xl hidden md:block' onClick={() => setShowProfile(prev => !prev)}/>}
 
         {userData && 
           <div className='w-[30px] h-[30px] text-[white]  bg-[#000000] cursor-pointer hover:bg-slate-500  rounded-full flex items-center justify-center cursor-pointer' onClick={() => setShowProfile(prev => !prev)}>
@@ -68,7 +68,7 @@ function Nav() {
           </div>
         }
 
-          <BsCartPlus className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-xl hidden md:block  '  onClick={()=>navigate("/cart")}/>
+          <BsCartPlus title='My Cart' className='w-[35px] h-[35px] text-[#000000] cursor-pointer hover:bg-slate-500  rounded-xl hidden md:block  '  onClick={()=>navigate("/cart")}/>
           <p className='absolute top-[3px] right-[23px] w-[18px] h-[18px] text-white rounded-full flex items-center justify-center md:flex bg-black px-[5px] py-[2px] right-[23px] hidden md:block  '>{getCartCount()}</p>
        </div>
 
@@ -84,12 +84,12 @@ function Nav() {
        <div className='w-[220px] h-[150px] bg-[#000000d7]  absolute top-[110%] right-[4%] border-[1px] border-[#aaa9a9] rounded-[10px] z-10 '>
 
 
-          <ul className='w-[100%] h-[100%] flex items-start flex-col justify-around text-[white] text-[17px] py-[10px]'> 
+          <ul  className='w-[100%] h-[100%] flex items-start flex-col justify-around text-[white] text-[17px] py-[10px]'> 
 
 
             {!userData && <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick = {() =>{  navigate("/login");setShowProfile(false)}}>Login</li>}
 
-            {userData && <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={()=>{handleLogout();setShowProfile(false)}}>Logout</li>}
+            {userData && <li  className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={()=>{handleLogout();setShowProfile(false)}}>Logout</li>}
 
             <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={() => navigate('/orders')}>Orders</li>
             

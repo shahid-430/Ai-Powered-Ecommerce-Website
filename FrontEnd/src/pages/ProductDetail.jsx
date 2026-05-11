@@ -110,7 +110,7 @@ function ProductDetail() {
             </div>
 
             <p className='text-[20px] font-semibold'>
-                Price: Rs {currency} {productData.price}
+                Price: Rs {currency} {productData.price}.00
             </p>
 
             <p className='text-[16px] text-slate-400 leading-[28px] mb-[20px]'>

@@ -1,7 +1,10 @@
 import React from 'react'
 import logo1 from '../assets/logo1.png'
+import { useNavigate } from 'react-router-dom'
+
 
 function Footer() {
+ let navigate = useNavigate()
   return (
     <footer className='w-full bg-[#dbfcfcec] mb-[77px] md:mb-0'>
       <div className='w-full max-w-[1200px] mx-auto px-5 py-10 md:px-8 md:py-14 flex flex-col md:flex-row gap-10 md:gap-12 md:justify-between'>
@@ -26,10 +29,10 @@ function Footer() {
             COMPANY
           </p>
           <ul className='flex flex-col gap-2 items-center md:items-start'>
-            <li className='text-sm md:text-base text-[#1e2223]'>Home</li>
-            <li className='text-sm md:text-base text-[#1e2223]'>About Us</li>
-            <li className='text-sm md:text-base text-[#1e2223]'>Delivery</li>
-            <li className='text-sm md:text-base text-[#1e2223]'>Privacy Policy</li>
+            <li title='Jump To Home' className='text-sm md:text-base text-[#1e2223] cursor-pointer' onClick={()=>navigate("/")}>Home</li>
+            <li title='Jump To About' className='text-sm md:text-base text-[#1e2223] cursor-pointer'onClick={()=>navigate("/about")}>About Us</li>
+            <li  title='Jump To delivery' className='text-sm md:text-base text-[#1e2223] cursor-pointer'onClick={()=>navigate("/devilery")}>Delivery</li>
+            <li  title='Jump To Our Policy' className='text-sm md:text-base text-[#1e2223] cursor-pointer'onClick={()=>navigate("/privacypolicy")}>Privacy Policy</li>
           </ul>
         </div>
 

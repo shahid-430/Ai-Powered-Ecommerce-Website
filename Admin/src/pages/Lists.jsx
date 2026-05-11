@@ -107,7 +107,7 @@ useEffect(()=>{
 },[])
   return (
 
-    <div className='w-[100vw] min-h-[100vh]    bg-gradient-to-l from-[#141414] to-[#0c2025] text-[white] '><Nav />
+    <div className='w-[99vw]  min-h-[100vh]  bg-gradient-to-l from-[#141414] to-[#0c2025] text-[white]  '><Nav />
     <div className='w-[100%] h-[100%] flex items-center justify-start'> <Sidebar />
 
     <div className='w-[82%] h-[100%] lg:ml-[320px] md:ml-[230px] sm:ml-[100px]
@@ -137,11 +137,11 @@ useEffect(()=>{
 
               <div className=' w-[10%] h-[100%] bg-transparent flex items-center justify-center gap-2'>
 
-                <span className='w-[30px] h-[30%] flex items-center justify-center rounded-md md:hover:bg-blue-300 md:hover:text-black cursor-pointer hover:bg-blue-300 hover:text-black' onClick={() => startEdit(item)} title="Edit"> 
+                <span className='w-[30px] h-[30%] flex items-center justify-center rounded-md md:hover:bg-blue-300 md:hover:text-black cursor-pointer hover:bg-blue-300 hover:text-black' onClick={() => startEdit(item)} title="Edit Product"> 
                   <FaEdit className='text-sm' />
                 </span>
 
-                <span className='w-[30px] h-[30%]  flex items-center justify-center rounded-md md:hover:bg-red-300 md:hover:text-black cursor-pointer hover:bg-red-300 hover:text-black' onClick={() => removelist(item._id)} title="Delete"> X </span>
+                <button className='w-[30px] h-[30%]  flex items-center justify-center rounded-md md:hover:bg-red-300 md:hover:text-black cursor-pointer hover:bg-red-300 hover:text-black' onClick={() => removelist(item._id)} title="Delete Product"> X </button>
               </div>
 
             </div>

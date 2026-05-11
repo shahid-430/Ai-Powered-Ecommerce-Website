@@ -6,7 +6,7 @@ import NewLetterBox from "../component/NewLetterBox";
 function Contact() {
 
 return (
-<div className="w-[98vw] min-h-[100vh] flex items-center justify-center flex-col bg-gradient-to-l from-[#141414] to-[#0c2025]  pt-[80px] ">
+<div className="w-[99vw] min-h-[100vh] flex items-center justify-center flex-col bg-gradient-to-l from-[#141414] to-[#0c2025]  pt-[80px] ">
              <Title text1={"Contact"} text2={"Us"}/>
             <div className="w-[100%] flex items-center justify-center lg:flex-row flex-col mt-[30px] ">
 
@@ -40,7 +40,7 @@ return (
                    resume and cover letter to careers@mycart.com
                 </p>
                 <button onClick={() =>   window.open(
-                     "https://pk.indeed.com/q-ecommerce-l-lahore-jobs.html", "_blank") } className="px-[30px] py-[10px] bg-[#0c2025] text-[white] rounded-md hover:bg-slate-600 transition duration-300">
+                     "https://pk.indeed.com/q-ecommerce-l-lahore-jobs.html", "_blank") } className="px-[30px] py-[10px] bg-[#0c2025] text-[white] rounded-md hover:bg-slate-600 transition duration-300 cursor-pointer">
                   Explore Jobs
                 </button>
           </div>

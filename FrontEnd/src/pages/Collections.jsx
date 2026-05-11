@@ -99,7 +99,7 @@ useEffect(() => {
 
 
 return (
-          <div className="w-[98vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex flex-col lg:flex-row pt-[70px] overflow-x-hidden z-[2] pb-[110px]">
+          <div className="w-[99vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex flex-col lg:flex-row pt-[70px] overflow-x-hidden z-[2] pb-[110px]">
 
 
             <div className={'w-[100vw] lg:w-[22vw] p-[20px] border-r-[1px] border-gray-400 text-[#aaf5fa] bg-slate-900/20 ' + (showFilter ? 'h-auto' : 'h-[8vh]') + ' lg:fixed lg:top-[70px] lg:left-0 lg:h-auto'}>

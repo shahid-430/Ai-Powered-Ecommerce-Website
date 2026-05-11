@@ -152,32 +152,27 @@ const getCartCount = () => {
 
 
     
-const getCartAmount = async () => {
+const getCartAmount =  () => {
 
         let totalAmount = 0
 
-        for (const items in cartItem) {
-            let itemInfo = products.find((product) => product._id === items);
-             for (const items in cartItem[items]){
-                    try{
+        for (const productId in cartItem) {
+            const itemInfo = products.find((product) => product._id === productId)
+            if (!itemInfo) continue
 
-                        if(cartItem[items][item] > 0){
-
-                            totalAmount += itemInfo.price * cartItem[items][item];
-                        }
-
-
-                    } catch(error){
-
-                        console.log(error)
+            for (const size in cartItem[productId]){
+                try{
+                    const quantity = cartItem[productId][size]
+                    if(quantity > 0){
+                        totalAmount += itemInfo.price * quantity
                     }
-
-
+                } catch(error){
+                    console.log(error)
                 }
-
             }
+        }
 
-            return totalAmount;
+        return totalAmount;
 
 }        
 

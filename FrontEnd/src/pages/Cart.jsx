@@ -3,6 +3,7 @@ import Title from '../component/Title'
 import { ShopDataContext } from '../context/ShopContext'
 import { useNavigate } from 'react-router-dom'
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import CartTotal from '../component/CartTotal';
 
 function Cart() {
 
@@ -30,7 +31,7 @@ function Cart() {
 
 
   return (
-     <div className='w-[98vw] min-h-[100vh]  p-[20px] bg-gradient-to-l from-[#141414] to-[#0c2025] pt-[70px] pb-[30px] lg:pb-[40px]'>
+     <div className='w-[99vw] min-h-[100vh]  p-[20px] bg-gradient-to-l from-[#141414] to-[#0c2025] pt-[70px] pb-[30px] lg:pb-[40px]'>
 
         <div className='h-[8%] w-[100%] text-center mt-[20px] '> 
           <Title text1={"YOUR"} text2={"CART"}/>
@@ -60,7 +61,7 @@ function Cart() {
                 </div>
                 <input type="number" min={1} defaultValue={item.quantity} className='md:max-w-20 max-w-10 md:px-2 md:py-2 py-[5px] px-[10px] text-[white] text-[18px] font-semibold bg-[#18080b4] absolute md:to-[40%] top-[46%] left-[75%] md:left-[50%] border-[1px] border-[#9ff9f9] rounded-md' onChange={(e) => e.target.value === ' ' || e.target.value === '0' ? null : updateQuantity(item._id,item.size, Number(e.target.value))}
                 />
-                <RiDeleteBin2Fill className='text-[#9ff9f9] w-[25px] h-[25px] absolute top-[50%] md:top-[40%] md:right-[5%] right-1  hover:bg-red-600 rounded-md' onClick={() => updateQuantity(item._id,item.size, 0)} />
+                <RiDeleteBin2Fill title='Remove from cart' className='text-[#9ff9f9] w-[25px] h-[25px] absolute top-[50%] md:top-[40%] md:right-[5%] right-1  hover:bg-red-600 rounded-md cursor-pointer' onClick={() => updateQuantity(item._id,item.size, 0)} />
         </div>  
                        
 </div>
@@ -68,6 +69,22 @@ function Cart() {
    })}
 
 </div>
+
+              <div className='flex justify-start items-end my-20'>
+                  <div className='w-full sm:w-[450px] '>
+
+                    <CartTotal/>
+
+                    <button title='PROCEED TO CHECKOUT' className='text-[18px] hover:bg-slate-500 cursor-pointer bg-[#51808048] py-[20px]  px-[50px] rounded-2xl text-white flex items-center justify-center gap-[20px] border-[1px] border-[#80808049] ml-[30px] mt-[20px]' onClick={()=>{if(cartData.length > 0) {navigate("/placeorder");
+
+                    }else{
+                      console.log("Your Cart Is Empty")
+                    }}}>
+                      PROCEED TO CHECKOUT
+                    </button>
+
+                  </div>
+              </div>
         
         
         

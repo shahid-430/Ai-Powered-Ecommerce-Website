@@ -12,6 +12,8 @@ import Collections from './pages/Collections'
 import Product from './pages/Product'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
+import PlaceOrder from './pages/PlaceOrder'
+import OurPolicy from './component/OurPolicy'
 
 function App() {
 
@@ -54,6 +56,12 @@ let location = useLocation()
 
          <Route path='/cart'
        element={ userData ? <Cart /> : <Navigate to="/login" state = {{from: location.pathname}} /> } />
+
+          <Route path='/placeorder'
+       element={ userData ? <PlaceOrder /> : <Navigate to="/login" state = {{from: location.pathname}} /> } />
+
+         <Route path='/privacypolicy'
+       element={ userData ? <OurPolicy /> : <Navigate to="/login" state = {{from: location.pathname}} /> } />
 
 
     </Routes>
