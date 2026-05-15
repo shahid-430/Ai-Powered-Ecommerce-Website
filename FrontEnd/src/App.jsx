@@ -5,7 +5,6 @@ import Login from './pages/login'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Nav from './component/Nav'
 import { UserDataContext } from './context/UserContext'
-import Orders from './pages/Orders'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Collections from './pages/Collections'
@@ -14,6 +13,7 @@ import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import PlaceOrder from './pages/PlaceOrder'
 import OurPolicy from './component/OurPolicy'
+import Orders from './pages/Orders'
 
 function App() {
 

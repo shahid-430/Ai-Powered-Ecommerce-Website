@@ -32,3 +32,19 @@ return res.status(201).json({message:"Order Placed"})
 
 
 }
+
+
+export  const userOrders = async (req,res) => {
+
+try{
+    const userId = req.userId;
+    const orders = await Order.find(userID)
+    return res.status(200).json(orders)
+
+}catch(error){
+    console.log(error)
+    res.status(500).json({message:"Order Placed Error"})
+}
+
+
+}
