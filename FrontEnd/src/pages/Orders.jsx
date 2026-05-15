@@ -17,8 +17,6 @@ const TRACKING_STEPS = [
   "Delivered",
 ];
 
-const CANCELLABLE_STATUSES = ["Order Placed", "Packing"];
-
 /* =========================
    COMMON BADGE STYLE
 ========================= */
@@ -87,20 +85,15 @@ function Orders() {
       if (result.data) {
         const allOrdersItem = [];
 
-        // Flatten orders — order-level fields set after item spread so they are not overwritten
+        // Flatten orders into single list
         result.data.forEach((order) => {
-          const orderTracking = (order.trackingNumber || "").trim();
-
           order.items.forEach((item) => {
-            const { trackingNumber: _ignored, ...itemData } = item;
-
             allOrdersItem.push({
-              ...itemData,
+              ...item,
               orderId: order._id,
               address: order.address,
               amount: order.amount,
               status: order.status,
-              trackingNumber: orderTracking,
               payment: order.payment,
               paymentMethod: order.PaymentMethod,
               date: order.date,
@@ -118,39 +111,6 @@ function Orders() {
   /* =========================
      INITIAL LOAD
   ========================= */
-  const handleCancelOrder = async (orderId) => {
-    if (!window.confirm("Are you sure you want to cancel this order?")) return;
-
-    try {
-      await axios.post(
-        `${serverUrl}/api/order/cancel/${orderId}`,
-        {},
-        { withCredentials: true }
-      );
-      await loadOrderData();
-    } catch (error) {
-      alert(error.response?.data?.message || "Failed to cancel order");
-    }
-  };
-
-  const handleDeleteOrder = async (orderId) => {
-    if (
-      !window.confirm(
-        "Remove this cancelled order from your orders list? It will still be visible to admin."
-      )
-    )
-      return;
-
-    try {
-      await axios.delete(`${serverUrl}/api/order/delete/${orderId}`, {
-        withCredentials: true,
-      });
-      setOrderData((prev) => prev.filter((item) => item.orderId !== orderId));
-    } catch (error) {
-      alert(error.response?.data?.message || "Failed to delete order");
-    }
-  };
-
   useEffect(() => {
     loadOrderData();
   }, []);
@@ -160,7 +120,7 @@ function Orders() {
 
       {/* PAGE TITLE */}
       <div className="text-center mt-[80px]">
-        <Title text1={"MY"} text2={"ORDER"} />
+        <Title text1={"MY"} text2={"ORDERS"} />
       </div>
 
       {/* ORDER LIST */}
@@ -178,12 +138,6 @@ function Orders() {
 
             const activeStep = getActiveStepIndex(item.status);
             const isTrackingOpen = trackingOrderId === item.orderId;
-            const isCancelled = item.status?.toLowerCase() === "cancelled";
-            const isFirstOfOrder =
-              orderData.findIndex((o) => o.orderId === item.orderId) === index;
-            const canCancel =
-              isFirstOfOrder && CANCELLABLE_STATUSES.includes(item.status);
-            const canDelete = isFirstOfOrder && isCancelled;
 
             return (
               <div key={index} className="w-full border-t border-b">
@@ -229,15 +183,6 @@ function Orders() {
                     <p className="text-[14px] text-[#9ff9f9]">
                       Date: {formatDate(item.date)}
                     </p>
-
-                    {isFirstOfOrder && item.trackingNumber && (
-                      <p className="text-[14px] text-[#aaf4e7]">
-                        Tracking:{" "}
-                        <span className="text-[#f3f9fc] font-medium">
-                          {item.trackingNumber}
-                        </span>
-                      </p>
-                    )}
                   </div>
 
                   {/* STATUS + BUTTON */}
@@ -248,34 +193,15 @@ function Orders() {
                     </div>
 
                     <button
-                      onClick={async () => {
-                        if (!isTrackingOpen) await loadOrderData();
+                      onClick={() =>
                         setTrackingOrderId(
                           isTrackingOpen ? null : item.orderId
-                        );
-                      }}
+                        )
+                      }
                       className={`${badgeClass} cursor-pointer`}
                     >
                       {isTrackingOpen ? "Hide Tracking" : "Track Order"}
                     </button>
-
-                    {canCancel && (
-                      <button
-                        onClick={() => handleCancelOrder(item.orderId)}
-                        className="px-4 py-2 bg-red-600/80 rounded-md border border-red-400 text-[14px] text-white cursor-pointer hover:bg-red-600"
-                      >
-                        Cancel Order
-                      </button>
-                    )}
-
-                    {canDelete && (
-                      <button
-                        onClick={() => handleDeleteOrder(item.orderId)}
-                        className="px-4 py-2 bg-gray-700/90 rounded-md border border-gray-500 text-[14px] text-white cursor-pointer hover:bg-gray-600"
-                      >
-                        Delete Order
-                      </button>
-                    )}
                   </div>
                 </div>
 
@@ -297,26 +223,7 @@ function Orders() {
                       </p>
                     )}
 
-                    <div className="mb-4 p-3 rounded-lg bg-[#51808048] border border-[#9ff9f9]/30">
-                      <p className="text-xs text-[#aaf4e7] uppercase mb-1">
-                        Shipping tracking number
-                      </p>
-                      {item.trackingNumber ? (
-                        <p className="text-[#f3f9fc] font-mono text-base md:text-lg font-semibold tracking-wide">
-                          {item.trackingNumber}
-                        </p>
-                      ) : (
-                        <p className="text-sm text-gray-400">
-                          Not added yet. Check back after your order is shipped.
-                        </p>
-                      )}
-                    </div>
-
-                    {isCancelled ? (
-                      <p className="text-red-400 font-medium">
-                        This order has been cancelled.
-                      </p>
-                    ) : (
+                    {/* TRACKING STEPS */}
                     <div>
                       {TRACKING_STEPS.map((step, stepIndex) => {
 
@@ -362,7 +269,6 @@ function Orders() {
                         );
                       })}
                     </div>
-                    )}
                   </div>
                 )}
               </div>

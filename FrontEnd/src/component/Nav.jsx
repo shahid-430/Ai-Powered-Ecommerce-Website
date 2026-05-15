@@ -8,7 +8,7 @@ import { UserDataContext } from '../context/UserContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineCollection } from "react-icons/hi";
-import { MdContacts } from "react-icons/md";
+import { MdContacts, MdReceiptLong } from "react-icons/md";
 import axios from 'axios';
 import { AuthDataContext } from '../context/AuthContext';
 import { ShopDataContext } from '../context/shopContext';
@@ -45,12 +45,13 @@ function Nav() {
 
 
      </div>
-       <div className ='w-[50%] lg:w-[40%] hidden md:flex'>
+       <div className ='w-[50%] lg:w-[45%] hidden md:flex'>
         <ul className='flex items-center justify-center gap-[19px] text-[white]'>
           <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/')}>Home</li>
           <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/collections')}>Collections</li>
           <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/about')}>About</li>
           <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/contact')}>Contact</li>
+          <li className='text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl' onClick={() => navigate('/orders')}>My Orders</li>
         </ul>
         </div>
 
@@ -91,7 +92,7 @@ function Nav() {
 
             {userData && <li  className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={()=>{handleLogout();setShowProfile(false)}}>Logout</li>}
 
-            <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={() => navigate('/orders')}>Orders</li>
+            <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={() => navigate('/orders')}>My Orders</li>
             
             <li className='w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer' onClick={() => navigate('/about')}>About</li>
 
@@ -104,6 +105,7 @@ function Nav() {
           <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/")}><IoMdHome className='w-[28px] h-[28px] text-[white] md:hidden'/>Home</button>
           <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/collections")}><HiOutlineCollection className='w-[28px] h-[28px] text-[white] md:hidden'/>Collections</button>
         <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/contact")}><MdContacts className='w-[28px] h-[28px] text-[white] md:hidden'/>Contact</button>
+        <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/orders")}><MdReceiptLong className='w-[28px] h-[28px] text-[white] md:hidden'/>Orders</button>
         <button className='text-[white] flex items-center justify-center flex-col gap-[2px]' onClick={()=>navigate("/cart")}><BsCartPlus className='w-[28px] h-[28px] text-[white] md:hidden'/>Cart</button>
         <p className='absolute top-[10px] right-[1px] bg-[#ff0000] text-[black] rounded-full w-[18px] h-[18px] flex items-center justify-center bg-[white] text-[9px] px-[5px] py-[2px] font-semibold mr-[10px] '>{getCartCount()}</p>
         
