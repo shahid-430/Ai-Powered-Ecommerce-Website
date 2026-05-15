@@ -39,3 +39,8 @@ export const getAdmin = async (req, res) => {
         return res.status(500).json({message: `Get Admin error ${error}`})
     }
 }
+
+
+
+
+

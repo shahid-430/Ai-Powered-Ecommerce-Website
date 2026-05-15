@@ -43,6 +43,21 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
 
+     trackingNumber:{
+        type:String,
+        default: ""
+    },
+
+     deletedByUser:{
+        type:Boolean,
+        default: false
+    },
+
+     deletedByAdmin:{
+        type:Boolean,
+        default: false
+    },
+
 },{timestamps: true})
 
 

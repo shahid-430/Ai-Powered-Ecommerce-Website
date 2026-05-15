@@ -1,9 +1,29 @@
-import express from 'express'
-import isAuth from '../middleware/isAuth.js'
-import { PlaceOrder } from '../controller/orderController.js'
+import express from "express";
+import isAuth from "../middleware/isAuth.js";
+import adminAuth from "../middleware/AdminAuth.js";
+import {
+  PlaceOrder,
+  userOrders,
+  getAllOrders,
+  updateOrderStatus,
+  updateOrderTracking,
+  cancelOrderUser,
+  cancelOrderAdmin,
+  deleteOrderUser,
+  deleteOrderAdmin,
+} from "../controller/orderController.js";
 
-const orderRoutes = express.Router()
+const orderRoutes = express.Router();
 
-orderRoutes.post("/placeorder", isAuth, PlaceOrder)
+orderRoutes.post("/placeorder", isAuth, PlaceOrder);
+orderRoutes.post("/userorder", isAuth, userOrders);
+orderRoutes.post("/cancel/:orderId", isAuth, cancelOrderUser);
+orderRoutes.delete("/delete/:orderId", isAuth, deleteOrderUser);
 
-export default orderRoutes
+orderRoutes.get("/list", adminAuth, getAllOrders);
+orderRoutes.patch("/:orderId/status", adminAuth, updateOrderStatus);
+orderRoutes.patch("/:orderId/tracking", adminAuth, updateOrderTracking);
+orderRoutes.post("/admin/cancel/:orderId", adminAuth, cancelOrderAdmin);
+orderRoutes.delete("/admin/delete/:orderId", adminAuth, deleteOrderAdmin);
+
+export default orderRoutes;
